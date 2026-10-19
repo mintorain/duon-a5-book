@@ -1,6 +1,6 @@
 # duon-a5-book
 
-두온교육 A5(148×210mm) 전자책 제작 스킬(Claude Code). 저자 원고 PDF를 원문 무수정으로 옮겨 bookforge `practical-a5` 스타일로 재조판하고, QC 게이트·북마크·판권·도서정보까지 마칩니다. 사용법과 절차는 [SKILL.md](SKILL.md).
+두온교육 A5(148×210mm) 전자책 제작 스킬(Claude Code). 저자 원고(PDF 또는 한글 HWPX)를 원문 무수정으로 옮겨 bookforge `practical-a5` 스타일로 재조판하고, QC 게이트·북마크·판권·도서정보까지 마칩니다. 사용법과 절차는 [SKILL.md](SKILL.md).
 
 ## 설치
 
@@ -16,7 +16,7 @@ git -C ~/bookforge checkout feature/practical-a5
 #    한국출판인회의 배포본을 받아 아래 이름으로 둔다
 #    ~/bookforge/assets/fonts/KoPubWorldDotum-{Light,Medium,Bold}.ttf
 
-# 4) 의존성: Typst 0.14.x, Python 3 + PyMuPDF·markdown-it-py (bookforge SKILL.md '실행 전 점검')
+# 4) 의존성: Typst 0.14.x, Python 3 + PyMuPDF·markdown-it-py·lxml(HWPX) (bookforge SKILL.md '실행 전 점검')
 ```
 
 ## 구성
@@ -24,8 +24,9 @@ git -C ~/bookforge checkout feature/practical-a5
 | 경로 | 내용 |
 |---|---|
 | `SKILL.md` | 10단계 제작 절차, 디자인 규격 |
-| `scripts/` | `profile_pdf.py` 원고 실측 · `pdf2chapters.py` 변환·원문 검증 · `montage.py` 몽타주 · `finalize_pdf.py` 북마크·문서 정보 |
+| `scripts/` | `profile_pdf.py` 원고 실측 · `pdf2chapters.py` PDF 변환·원문 검증 · `hwpx2chapters.py` HWPX 실측(`--profile`)·변환·원문 검증 · `overflow_check.py` 줄넘침·표 칸 조각 줄 검사 · `montage.py` 몽타주 · `finalize_pdf.py` 북마크·문서 정보 |
 | `templates/book.json` | 책 설정 틀(두온교육 판권 표준 포함) |
+| `templates/cover.typ` | 표지 이미지가 없을 때 쓰는 타이포 표지(book.json 에서 글자를 읽음) |
 | `references/` | `pitfalls.md` 조판 함정과 해법 · `publishing.md` 삭제 기준·판권·표지·도서정보·라이선스 |
 | `assets/logo_duonedu.png` | 두온교육 로고 |
 

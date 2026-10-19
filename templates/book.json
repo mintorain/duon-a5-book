@@ -8,6 +8,10 @@
   "length": "standard",
   "images": "none",
   "date": "2026-MM-DD",
+  "keywords": [
+    "키워드1",
+    "키워드2"
+  ],
   "cover_bg": "#00162c",
   "publisher_logo": "logo_duon.png",
   "author_photo": "author.png",
@@ -26,7 +30,10 @@
   },
   "manuscript": {
     "source": "../원고.pdf",
-    "skip_pages": [1, 3],
+    "skip_pages": [
+      1,
+      3
+    ],
     "sizes": {
       "chapter": 20.0,
       "part": 12.0,
@@ -48,7 +55,10 @@
     "author_additions": [],
     "gift": {
       "title": "특별 선물 제목",
-      "lines": ["\"한 줄 카피\"", "QR코드로 실행해 보기"],
+      "lines": [
+        "\"한 줄 카피\"",
+        "QR코드로 실행해 보기"
+      ],
       "url": "https://..."
     }
   }

@@ -17,7 +17,7 @@ import pymupdf
 BOOK = Path(sys.argv[1])
 OUT = Path(sys.argv[2])
 SRC = BOOK / "final" / f"{BOOK.name}.pdf"
-CH_NUM_RE = re.compile(r"^\d+장\s")
+CH_NUM_RE = re.compile(r"^제?\d+장\s")
 
 
 def norm(s):
@@ -81,9 +81,9 @@ def main():
                 in_part = False              # 에필로그·부록·용어·참고자료는 부 밖
             toc.append([2 if in_part else 1, title, page])
         else:
-            toc.append([(3 if in_part else 2), title, page])
+            toc.append([lvl + (1 if in_part else 0), title, page])   # 절(2)·소제목(3) 단계 유지
     if gift_p:
-        toc.append([1, "전자책 구매자 특별 선물", gift_p])
+        toc.append([1, book.get("gift_head", "전자책 구매자 특별 선물"), gift_p])
     if colo_p:
         toc.append([1, "판권", colo_p])
     doc.set_toc(toc)
@@ -93,8 +93,7 @@ def main():
         "title": book["title"],
         "author": book.get("author", ""),
         "subject": f"{book.get('subtitle', '')} | {col.get('publisher_full', book.get('publisher', ''))} | ISBN {isbn}",
-        "keywords": ", ".join(["AI 에이전트", "글로벌 마케팅", "수출 마케팅", "해외시장조사", "바이어 발굴",
-                               "GPT-6 Astra", "다국어 콘텐츠", "콜드메일", "GEO", f"ISBN {isbn}"]),
+        "keywords": ", ".join(book.get("keywords", []) + [f"ISBN {isbn}"]),   # book.json keywords
         "creator": col.get("publisher_full", book.get("publisher", "")),
         "producer": "Typst · bookforge practical-a5",
     })
